@@ -18,74 +18,98 @@ document.addEventListener('DOMContentLoaded', () => {
     progress.style.width = pct + '%';
   }, 80);
 
-  // ===== CURSOR =====
+  // ===== CURSOR (desktop only) =====
   const cursor = document.getElementById('cursor');
   const follower = document.getElementById('cursorFollower');
-  let mx = 0, my = 0, fx = 0, fy = 0;
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
+  if (cursor && follower && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let mx = 0, my = 0, fx = 0, fy = 0;
 
-  function animateFollower() {
-    fx += (mx - fx) * 0.12;
-    fy += (my - fy) * 0.12;
-    follower.style.left = fx + 'px';
-    follower.style.top = fy + 'px';
-    requestAnimationFrame(animateFollower);
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    function animateFollower() {
+      fx += (mx - fx) * 0.12;
+      fy += (my - fy) * 0.12;
+      follower.style.left = fx + 'px';
+      follower.style.top  = fy + 'px';
+      requestAnimationFrame(animateFollower);
+    }
+    animateFollower();
   }
-  animateFollower();
+
+  // ===== SCROLL PROGRESS BAR =====
+  const scrollBar = document.getElementById('scrollProgress');
+  if (scrollBar) {
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollBar.style.width = pct + '%';
+    }, { passive: true });
+  }
 
   // ===== NAVBAR =====
-  const navbar = document.getElementById('navbar');
+  const navbar    = document.getElementById('navbar');
   const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
+  const navLinks  = document.getElementById('navLinks');
+  const navOverlay = document.getElementById('navOverlay');
 
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 60);
-  });
+  }, { passive: true });
+
+  function openMenu() {
+    navLinks.classList.add('open');
+    navOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    const spans = navToggle.querySelectorAll('span');
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity   = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  }
+
+  function closeMenu() {
+    navLinks.classList.remove('open');
+    navOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    const spans = navToggle.querySelectorAll('span');
+    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  }
 
   navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    const spans = navToggle.querySelectorAll('span');
-    if (navLinks.classList.contains('open')) {
-      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-      spans[1].style.opacity = '0';
-      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-    } else {
-      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
-    }
+    navLinks.classList.contains('open') ? closeMenu() : openMenu();
   });
 
-  // Close menu on link click
+  navOverlay.addEventListener('click', closeMenu);
+
+  // Close menu on nav link click
   navLinks.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      const spans = navToggle.querySelectorAll('span');
-      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
-    });
+    link.addEventListener('click', closeMenu);
   });
 
   // ===== COUNTER ANIMATION =====
-  function animateCounter(el, target, duration = 2000, suffix = '') {
+  function animateCounter(el, target, duration = 2000) {
     let start = null;
     const step = ts => {
       if (!start) start = ts;
-      const progress = Math.min((ts - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const pct = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - pct, 3);
       el.textContent = Math.round(eased * target);
-      if (progress < 1) requestAnimationFrame(step);
+      if (pct < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
   }
 
-  // ===== INTERSECTION OBSERVER =====
-  const observerOpts = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
+  // ===== INTERSECTION OBSERVER FACTORY =====
+  const makeObserver = (callback, opts = {}) =>
+    new IntersectionObserver(callback, { threshold: 0.15, rootMargin: '0px 0px -40px 0px', ...opts });
 
   // Stat counters
-  const statObserver = new IntersectionObserver((entries) => {
+  const statObserver = makeObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
@@ -94,60 +118,58 @@ document.addEventListener('DOMContentLoaded', () => {
         statObserver.unobserve(el);
       }
     });
-  }, observerOpts);
-
+  });
   document.querySelectorAll('[data-target]').forEach(el => statObserver.observe(el));
 
   // Reveal images
-  const imgObserver = new IntersectionObserver((entries) => {
+  const imgObserver = makeObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
         imgObserver.unobserve(entry.target);
       }
     });
-  }, observerOpts);
-
+  });
   document.querySelectorAll('.reveal-img').forEach(el => imgObserver.observe(el));
 
-  // Pillar items
-  const pillarObserver = new IntersectionObserver((entries) => {
+  // Generic staggered reveal (pillar-item, process-card, herb-card)
+  const staggerObserver = makeObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const delay = parseInt(entry.target.dataset.delay || 0);
         setTimeout(() => entry.target.classList.add('visible'), delay);
-        pillarObserver.unobserve(entry.target);
+        staggerObserver.unobserve(entry.target);
       }
     });
-  }, observerOpts);
+  });
+  document.querySelectorAll('.pillar-item, .process-card, .herb-card').forEach(el => staggerObserver.observe(el));
 
-  document.querySelectorAll('.pillar-item').forEach(el => pillarObserver.observe(el));
-
-  // Process cards stagger
-  const cardObserver = new IntersectionObserver((entries) => {
+  // Data-reveal generic sections (commitment items, testimonials)
+  const revealObserver = makeObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const delay = parseInt(entry.target.dataset.delay || 0);
+        const delay = parseInt(entry.target.dataset.revealDelay || 0);
         setTimeout(() => entry.target.classList.add('visible'), delay);
-        cardObserver.unobserve(entry.target);
+        revealObserver.unobserve(entry.target);
       }
     });
-  }, observerOpts);
+  });
+  document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
 
-  document.querySelectorAll('.process-card').forEach(el => cardObserver.observe(el));
-
-  // Herb cards stagger
-  const herbObserver = new IntersectionObserver((entries) => {
+  // Herb progress bars — animate when herb card becomes visible
+  const progressObserver = makeObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const delay = parseInt(entry.target.dataset.delay || 0);
-        setTimeout(() => entry.target.classList.add('visible'), delay);
-        herbObserver.unobserve(entry.target);
+        const bar = entry.target.querySelector('.herb-progress-bar');
+        if (bar) {
+          const target = bar.dataset.progress || 0;
+          setTimeout(() => { bar.style.width = target + '%'; }, 400);
+        }
+        progressObserver.unobserve(entry.target);
       }
     });
-  }, observerOpts);
-
-  document.querySelectorAll('.herb-card').forEach(el => herbObserver.observe(el));
+  });
+  document.querySelectorAll('.herb-card').forEach(el => progressObserver.observe(el));
 
   // ===== PROCESS CARD ACTIVE STATE =====
   document.querySelectorAll('.process-card').forEach(card => {
@@ -160,18 +182,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ===== PARALLAX ON HERO =====
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const tower = document.getElementById('heroTower');
-    if (tower) tower.style.transform = `translateY(${scrollY * 0.04}px)`;
-  });
+  // ===== PARALLAX ON HERO (desktop only) =====
+  if (window.matchMedia('(min-width: 1025px)').matches) {
+    window.addEventListener('scroll', () => {
+      const tower = document.getElementById('heroTower');
+      if (tower) tower.style.transform = `translateY(${window.scrollY * 0.04}px)`;
+    }, { passive: true });
+  }
 
   // ===== CTA FORM =====
   const ctaSubmit = document.getElementById('ctaSubmit');
-  const ctaEmail = document.getElementById('ctaEmail');
+  const ctaEmail  = document.getElementById('ctaEmail');
 
-  if (ctaSubmit) {
+  if (ctaSubmit && ctaEmail) {
     ctaSubmit.addEventListener('click', () => {
       const email = ctaEmail.value.trim();
       if (!email || !email.includes('@')) {
@@ -197,9 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== SMOOTH ACTIVE NAV ON SCROLL =====
   const sections = document.querySelectorAll('section[id]');
-  const links = document.querySelectorAll('.nav-link');
+  const links    = document.querySelectorAll('.nav-link');
 
-  const sectionObserver = new IntersectionObserver((entries) => {
+  const sectionObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         links.forEach(l => l.style.color = '');
@@ -214,6 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== HARVEST BADGE ROTATE =====
   const badges = ['Basil · Day 21', 'Lettuce · Day 14', 'Mint · Day 10', 'Spinach · Day 19'];
   let badgeIndex = 0;
+
+  // Rotate on desktop hero badge
   const hbValue = document.querySelector('.hb-value');
   if (hbValue) {
     setInterval(() => {
@@ -229,7 +254,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2800);
   }
 
-  // ===== SHAKE KEYFRAME ===== (inject via JS)
+  // Rotate on mobile hero badge
+  const hbValueMobile = document.querySelector('.hb-value-mobile');
+  if (hbValueMobile) {
+    setInterval(() => {
+      badgeIndex = (badgeIndex + 1) % badges.length;
+      hbValueMobile.style.opacity = '0';
+      setTimeout(() => {
+        hbValueMobile.textContent = badges[badgeIndex];
+        hbValueMobile.style.transition = 'opacity 0.4s';
+        hbValueMobile.style.opacity = '1';
+      }, 300);
+    }, 3200);
+  }
+
+  // ===== INJECT KEYFRAMES =====
   const styleSheet = document.createElement('style');
   styleSheet.textContent = `
     @keyframes shake {
