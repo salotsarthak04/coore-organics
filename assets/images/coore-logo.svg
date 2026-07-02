@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 460" fill="none">
+
+  <!-- ===== COORE TEXT ===== -->
+  <!-- C -->
+  <path d="M58 120 C58 80 78 56 120 56 C150 56 170 70 178 88 L155 100 C148 87 138 78 120 78 C95 78 82 95 82 120 C82 145 95 162 120 162 C138 162 148 153 155 140 L178 152 C170 170 150 184 120 184 C78 184 58 160 58 120Z" fill="#3d5a27"/>
+
+  <!-- Infinity OO (two loops forming ∞) -->
+  <!-- Left O loop -->
+  <ellipse cx="248" cy="120" rx="60" ry="44" stroke="#3d5a27" stroke-width="26" fill="none"/>
+  <!-- Right O loop -->
+  <ellipse cx="368" cy="120" rx="60" ry="44" stroke="#3d5a27" stroke-width="26" fill="none"/>
+
+  <!-- Leaf stem rising from center of infinity -->
+  <path d="M308 112 C308 90 308 72 308 56" stroke="#3d5a27" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Left leaf -->
+  <path d="M308 72 C296 52 272 44 264 58 C268 76 292 80 308 72Z" fill="#3d5a27"/>
+  <!-- Left leaf vein -->
+  <path d="M308 72 C296 62 278 56 270 58" stroke="#f0ebe0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Right leaf -->
+  <path d="M308 60 C320 40 346 36 352 50 C346 68 322 70 308 60Z" fill="#3d5a27"/>
+  <!-- Right leaf vein -->
+  <path d="M308 60 C320 50 342 44 350 50" stroke="#f0ebe0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Small inner leaf on left loop -->
+  <path d="M222 136 C212 152 218 168 230 164 C238 152 234 138 222 136Z" fill="#3d5a27" transform="rotate(-20, 222, 150)"/>
+
+  <!-- R -->
+  <path d="M440 184 L440 56 L490 56 C522 56 540 72 540 100 C540 120 530 134 514 140 L546 184 L518 184 L490 144 L464 144 L464 184 Z M464 124 L490 124 C506 124 516 116 516 100 C516 84 506 76 490 76 L464 76 Z" fill="#3d5a27"/>
+
+  <!-- E with bottom bar decoration -->
+  <path d="M562 56 L562 184 L640 184 L640 164 L586 164 L586 130 L632 130 L632 110 L586 110 L586 76 L638 76 L638 56 Z" fill="#3d5a27"/>
+  <!-- E bottom accent line -->
+  <line x1="562" y1="196" x2="640" y2="196" stroke="#3d5a27" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- ===== ORGANICS ===== -->
+  <!-- Left dash -->
+  <line x1="58" y1="242" x2="175" y2="242" stroke="#3d5a27" stroke-width="3"/>
+  <!-- ORGANICS text -->
+  <text x="340" y="252" font-family="'Arial', 'Helvetica', sans-serif" font-weight="400" font-size="36" fill="#3d5a27" text-anchor="middle" letter-spacing="14">ORGANICS</text>
+  <!-- Right dash -->
+  <line x1="505" y1="242" x2="622" y2="242" stroke="#3d5a27" stroke-width="3"/>
+
+  <!-- ===== TAGLINE ===== -->
+  <text x="340" y="292" font-family="'Arial', 'Helvetica', sans-serif" font-weight="500" font-size="18" fill="#3d5a27" text-anchor="middle" letter-spacing="4">FRESH  |  PURE  |  AFFORDABLE</text>
+
+</svg>
