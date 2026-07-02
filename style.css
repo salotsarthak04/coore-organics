@@ -370,8 +370,8 @@ ul   { list-style: none; }
   box-shadow: var(--shadow-lg);
   animation: floatAnim 6s ease-in-out infinite;
   display: block;
-  /* Video-specific: keep natural aspect ratio, clip to rounded corners */
-  object-fit: contain;
+  object-fit: cover;
+  aspect-ratio: 9 / 16;
   background: transparent;
 }
 /* Prevent default video controls */
