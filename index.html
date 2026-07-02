@@ -37,34 +37,36 @@
   <nav class="nav" id="navbar">
     <div class="nav-container">
       <a href="#" class="nav-logo" aria-label="Coore Organics Home">
-        <img src="assets/images/coore-logo.svg" alt="Coore Organics — Fresh Pure Affordable" class="nav-logo-img" />
+        <img src="assets/images/coore-logo.svg" alt="Coore Organics" class="nav-logo-img" />
       </a>
 
-      <!-- Mobile overlay backdrop -->
-      <div class="nav-overlay" id="navOverlay"></div>
-
       <ul class="nav-links" id="navLinks">
-        <div class="nav-mobile-header">
-          <span class="nav-mobile-brand">COORE ORGANICS</span>
-        </div>
-        <li><a href="#grow" class="nav-link">Grow</a></li>
-        <li><a href="#story" class="nav-link">Story</a></li>
+        <li><a href="#grow"    class="nav-link">Grow</a></li>
+        <li><a href="#story"   class="nav-link">Story</a></li>
         <li><a href="#process" class="nav-link">Process</a></li>
         <li><a href="#harvest" class="nav-link">Harvest</a></li>
-        <li class="nav-mobile-cta"><a href="#contact" class="btn btn-dark">Get a Tower</a></li>
       </ul>
 
-      <a href="#contact" class="btn btn-dark" id="ctaBtn">Get a Tower</a>
+      <a href="#contact" class="btn btn-dark nav-cta" id="ctaBtn">Get a Tower</a>
 
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
+
+    <!-- Mobile slide-in menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#grow"    class="mobile-link">Grow</a>
+      <a href="#story"   class="mobile-link">Story</a>
+      <a href="#process" class="mobile-link">Process</a>
+      <a href="#harvest" class="mobile-link">Harvest</a>
+      <a href="#contact" class="btn btn-dark mobile-cta-btn">Get a Tower</a>
+    </div>
+    <div class="nav-overlay" id="navOverlay"></div>
   </nav>
 
   <!-- ===== HERO ===== -->
   <section class="hero-wrapper" id="home">
-    <!-- Floating leaf particles -->
     <div class="hero-particles" aria-hidden="true">
       <div class="particle particle-1">🌿</div>
       <div class="particle particle-2">🍃</div>
@@ -74,24 +76,26 @@
     </div>
 
     <div class="hero" id="heroGrid">
+      <!-- LEFT: Text -->
       <div class="hero-content">
         <div class="hero-badge">
           <span class="badge-dot"></span>
           ROOTED IN NATURE · COMMITTED FOR LIFE
         </div>
         <h1 class="hero-headline">
-          <span class="hero-line hero-dark" data-text="Grow">Grow</span>
-          <span class="hero-line hero-green" data-text="greener.">greener.</span>
-          <span class="hero-line hero-dark" data-text="Eat">Eat</span>
-          <em class="hero-line hero-italic" data-text="fresher.">fresher.</em>
+          <span class="hero-line hero-dark">Grow</span>
+          <span class="hero-line hero-green">greener.</span>
+          <span class="hero-line hero-dark">Eat</span>
+          <em class="hero-line hero-italic">fresher.</em>
         </h1>
         <p class="hero-sub">Vertical hydroponic towers that bring nature's bounty into your home. Fresh herbs, greens, and vegetables — every single day.</p>
         <div class="hero-actions">
           <a href="#process" class="btn btn-dark btn-lg">Start Growing</a>
-          <a href="#story" class="btn btn-outline btn-lg">Our Story</a>
+          <a href="#story"   class="btn btn-outline btn-lg">Our Story</a>
         </div>
       </div>
 
+      <!-- RIGHT: Image (shows on all screen sizes, repositions on mobile) -->
       <div class="hero-visual">
         <div class="hero-img-wrap">
           <img src="assets/images/hydroponic_tower.png" alt="Coore Organics Hydroponic Tower" class="hero-tower" id="heroTower" />
@@ -104,18 +108,6 @@
             <span class="gs-label">Faster Growth</span>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Mobile hero visual (compact) -->
-    <div class="hero-mobile-visual">
-      <div class="hero-mobile-card">
-        <img src="assets/images/hydroponic_tower.png" alt="Coore Organics Hydroponic Tower" class="hero-mobile-img" />
-        <div class="hero-mobile-badge">
-          <span class="hb-label">HARVEST READY</span>
-          <span class="hb-value-mobile">Basil · Day 21</span>
-        </div>
-        <div class="hero-mobile-stat">3× Faster Growth</div>
       </div>
     </div>
   </section>
@@ -171,7 +163,7 @@
   </section>
 
   <!-- ===== WAVE DIVIDER ===== -->
-  <div class="wave-divider wave-cream-to-offwhite" aria-hidden="true">
+  <div class="wave-divider" aria-hidden="true">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="var(--off-white)"/>
     </svg>
@@ -217,7 +209,7 @@
   </section>
 
   <!-- ===== WAVE DIVIDER ===== -->
-  <div class="wave-divider wave-offwhite-to-cream" aria-hidden="true">
+  <div class="wave-divider" aria-hidden="true">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,0 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="var(--cream)"/>
     </svg>
@@ -229,7 +221,7 @@
       <div class="story-grid">
         <div class="story-img-col">
           <div class="story-img-wrap">
-            <img src="assets/images/leaf_droplet.png" alt="Water drop on leaf - nature's purity" class="story-img reveal-img" />
+            <img src="assets/images/leaf_droplet.png" alt="Water drop on leaf" class="story-img reveal-img" />
             <div class="story-img-caption">Pure. Natural. Essential.</div>
           </div>
         </div>
@@ -237,7 +229,6 @@
           <span class="section-label">THE STORY BEHIND</span>
           <h2 class="section-heading section-heading-dark">The Core <em>Infinity.</em></h2>
           <p class="section-body section-body-dark">At the heart of Coore Organics lies the belief that wellness is a continuous journey — one that connects people to nature and to a better tomorrow. The infinity in our mark is more than a design choice. It's our promise.</p>
-
           <div class="story-pillars">
             <div class="pillar-item" data-delay="0">
               <span class="pillar-num">01</span>
@@ -267,7 +258,7 @@
   </section>
 
   <!-- ===== WAVE DIVIDER ===== -->
-  <div class="wave-divider wave-cream-to-dark" aria-hidden="true">
+  <div class="wave-divider" aria-hidden="true">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="var(--green-dark)"/>
     </svg>
@@ -281,25 +272,25 @@
         <h2 class="process-heading">From seed to plate,<br /><em>vertically.</em></h2>
       </div>
       <div class="process-cards">
-        <div class="process-card" data-step="01" data-delay="0" id="step1">
+        <div class="process-card" data-step="01" data-delay="0">
           <span class="card-num">01</span>
           <h3 class="card-title">Plant</h3>
           <p class="card-body">Drop sprouted seedlings into the tower pods. No soil, no mess.</p>
           <div class="card-line"></div>
         </div>
-        <div class="process-card" data-step="02" data-delay="100" id="step2">
+        <div class="process-card" data-step="02" data-delay="100">
           <span class="card-num">02</span>
           <h3 class="card-title">Circulate</h3>
           <p class="card-body">Nutrient-rich water flows top to bottom, feeding every root.</p>
           <div class="card-line"></div>
         </div>
-        <div class="process-card process-card--active" data-step="03" data-delay="200" id="step3">
+        <div class="process-card process-card--active" data-step="03" data-delay="200">
           <span class="card-num">03</span>
           <h3 class="card-title">Grow</h3>
           <p class="card-body">3× faster growth under LED sun or a bright kitchen window.</p>
           <div class="card-line"></div>
         </div>
-        <div class="process-card" data-step="04" data-delay="300" id="step4">
+        <div class="process-card" data-step="04" data-delay="300">
           <span class="card-num">04</span>
           <h3 class="card-title">Harvest</h3>
           <p class="card-body">Snip fresh leaves straight into tonight's dinner.</p>
@@ -310,7 +301,7 @@
   </section>
 
   <!-- ===== WAVE DIVIDER ===== -->
-  <div class="wave-divider wave-dark-to-offwhite" aria-hidden="true">
+  <div class="wave-divider" aria-hidden="true">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,20 C480,60 960,0 1440,40 L1440,0 L0,0 Z" fill="var(--green-dark)"/>
     </svg>
@@ -328,57 +319,42 @@
           <div class="herb-icon">🌿</div>
           <h4>Basil</h4>
           <span class="herb-days">Ready in 21 days</span>
-          <div class="herb-progress-wrap">
-            <div class="herb-progress-bar" data-progress="85"></div>
-          </div>
+          <div class="herb-progress-wrap"><div class="herb-progress-bar" data-progress="85"></div></div>
         </div>
         <div class="herb-card" data-delay="80">
           <div class="herb-icon">🥬</div>
           <h4>Lettuce</h4>
           <span class="herb-days">Ready in 28 days</span>
-          <div class="herb-progress-wrap">
-            <div class="herb-progress-bar" data-progress="72"></div>
-          </div>
+          <div class="herb-progress-wrap"><div class="herb-progress-bar" data-progress="72"></div></div>
         </div>
         <div class="herb-card" data-delay="160">
           <div class="herb-icon">🌱</div>
           <h4>Spinach</h4>
           <span class="herb-days">Ready in 25 days</span>
-          <div class="herb-progress-wrap">
-            <div class="herb-progress-bar" data-progress="78"></div>
-          </div>
+          <div class="herb-progress-wrap"><div class="herb-progress-bar" data-progress="78"></div></div>
         </div>
         <div class="herb-card" data-delay="240">
           <div class="herb-icon">🍃</div>
           <h4>Mint</h4>
           <span class="herb-days">Ready in 18 days</span>
-          <div class="herb-progress-wrap">
-            <div class="herb-progress-bar" data-progress="92"></div>
-          </div>
+          <div class="herb-progress-wrap"><div class="herb-progress-bar" data-progress="92"></div></div>
         </div>
         <div class="herb-card" data-delay="320">
           <div class="herb-icon">🌿</div>
           <h4>Coriander</h4>
           <span class="herb-days">Ready in 22 days</span>
-          <div class="herb-progress-wrap">
-            <div class="herb-progress-bar" data-progress="80"></div>
-          </div>
+          <div class="herb-progress-wrap"><div class="herb-progress-bar" data-progress="80"></div></div>
         </div>
         <div class="herb-card" data-delay="400">
           <div class="herb-icon">🥦</div>
           <h4>Kale</h4>
           <span class="herb-days">Ready in 30 days</span>
-          <div class="herb-progress-wrap">
-            <div class="herb-progress-bar" data-progress="65"></div>
-          </div>
+          <div class="herb-progress-wrap"><div class="herb-progress-bar" data-progress="65"></div></div>
         </div>
       </div>
-
       <div class="harvest-img-wrap">
         <img src="assets/images/fresh_herbs.png" alt="Fresh organic herbs from Coore Organics" class="harvest-img reveal-img" />
-        <div class="harvest-overlay">
-          <span>Fresh. Pure. Yours.</span>
-        </div>
+        <div class="harvest-overlay"><span>Fresh. Pure. Yours.</span></div>
       </div>
     </div>
   </section>
