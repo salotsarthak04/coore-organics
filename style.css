@@ -369,7 +369,14 @@ ul   { list-style: none; }
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
   animation: floatAnim 6s ease-in-out infinite;
+  display: block;
+  /* Video-specific: keep natural aspect ratio, clip to rounded corners */
+  object-fit: contain;
+  background: transparent;
 }
+/* Prevent default video controls */
+.hero-tower::-webkit-media-controls { display: none !important; }
+.hero-tower::-webkit-media-controls-enclosure { display: none !important; }
 @keyframes floatAnim {
   0%,100% { transform: translateY(0px); }
   50%      { transform: translateY(-16px); }

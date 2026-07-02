@@ -13,7 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pct >= 100) {
       pct = 100;
       clearInterval(tick);
-      setTimeout(() => loader.classList.add('hidden'), 200);
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        // Try to play hero video after loader (helps mobile autoplay policies)
+        const heroVideo = document.getElementById('heroTower');
+        if (heroVideo && heroVideo.tagName === 'VIDEO') {
+          heroVideo.play().catch(() => {
+            // Autoplay blocked — poster image will show as fallback
+          });
+        }
+      }, 200);
     }
     progress.style.width = pct + '%';
   }, 80);

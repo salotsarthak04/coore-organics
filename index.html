@@ -95,10 +95,23 @@
         </div>
       </div>
 
-      <!-- RIGHT: Image (shows on all screen sizes, repositions on mobile) -->
+      <!-- RIGHT: Video hero visual -->
       <div class="hero-visual">
         <div class="hero-img-wrap">
-          <img src="assets/images/hydroponic_tower.png" alt="Coore Organics Hydroponic Tower" class="hero-tower" id="heroTower" />
+          <video
+            class="hero-tower"
+            id="heroTower"
+            autoplay
+            muted
+            loop
+            playsinline
+            poster="assets/images/hydroponic_tower.png"
+            aria-label="Coore Organics hydroponic tower with plants growing"
+          >
+            <source src="assets/images/hero-video.mp4" type="video/mp4" />
+            <!-- Fallback image for browsers that don't support video -->
+            <img src="assets/images/hydroponic_tower.png" alt="Coore Organics Hydroponic Tower" />
+          </video>
           <div class="harvest-badge" id="harvestBadge">
             <span class="hb-label">HARVEST READY</span>
             <span class="hb-value">Basil · Day 21</span>
